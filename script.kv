@@ -1,0 +1,141 @@
+<IndeScript>:
+    mandrel_rad_text_input: mandrel_rad
+    yarn_width_text_input: yarn_width
+    c_text_input: c
+    velocity_text_input: velocity
+    speed_text_input: speed
+    half_cone_text_input: half_cone
+    braid_angle_text_input: braid_angle
+    jam_angle_text_input: jam_angle
+    shift_angle_text_input: shift_angle
+    yarn_und_text_input: yarn_und
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            size_hint_y: 45
+            Button:
+                text:'Back'
+                font_size: 25
+                on_press: root.manager.current = 'main'
+            Button:
+                text: 'Exit'
+                font_size: 25
+            Button:
+                font_size: 25
+                background_color: 2, 0, 0, 1
+                text:'Stop Braiding'
+        Label:
+            size_hint_y: 100
+            text: 'Braid Calculations'
+            font_size: 50
+        BoxLayout:
+            size_hint_y: 60
+            BoxLayout:
+                Label:
+                    font_size: 18
+                    text: 'Radius\n(mm)'
+                TextInput:
+                    id: mandrel_rad
+                    multiline : False
+                    input_type: 'number'
+            BoxLayout:
+                Label:
+                    font_size: 18
+                    text: 'Yarn Width\n(mm)'
+                TextInput:
+                    id: yarn_width
+                    multiline : False
+                    input_type: 'number'
+        BoxLayout:
+            size_hint_y: 60
+            BoxLayout:
+                Label:
+                    font_size: 18
+                    text: 'No. of Carriers'
+                TextInput:
+                    id: c
+                    multiline : False
+                    input_type: 'number'
+            BoxLayout:
+                Label:
+                    font_size: 18
+                    text: 'Velocity\n(mm/min)'
+                TextInput:
+                    id: velocity
+                    multiline : False
+                    input_type: 'number'
+        BoxLayout:
+            size_hint_y: 60
+            BoxLayout:
+                Label:
+                    font_size: 18
+                    text: 'Braid Speed\n(rev/min)'
+                TextInput:
+                    id: speed
+                    multiline : False
+                    input_type: 'number'
+            BoxLayout:
+                Label:
+                    font_size: 18
+                    text: 'Half-cone\nangle(degrees)'
+                TextInput:
+                    id: half_cone
+                    multiline : False
+                    input_type: 'number'
+        Button:
+            size_hint_y: 60
+            font_size: 37
+            text: 'Calculate!'
+            on_press: root.SubmitVariables()
+        #Below are the calculated variables;
+        BoxLayout:
+            size_hint_y: 50
+            Label:
+                font_size: 18
+                text: 'Braid Angle (degrees)'
+            TextInput:
+                id: braid_angle
+                text:'-'
+                multiline : False
+                readonly: True
+        BoxLayout:
+            size_hint_y: 50
+            Label:
+                font_size: 18
+                text: 'Jam Angle (degrees)'
+            TextInput:
+                id: jam_angle
+                text: '-'
+                multiline : False
+                readonly: True
+        BoxLayout:
+            size_hint_y: 50
+            Label:
+                font_size: 18
+                text: 'Yarn Undulation (mm)'
+            TextInput:
+                id: yarn_und
+                text: '-'
+                multiline : False
+                readonly: True
+        BoxLayout:
+            size_hint_y: 50
+            Label:
+                font_size: 18
+                text: 'Shift Angle (rad)'
+            TextInput:
+                id:shift_angle
+                text: '-'
+                multiline : False
+                readonly: True
+        Button:
+            background_color: 0, 0, 1, 1
+            size_hint_y: 60
+            font_size: 40
+            text: 'Start Braiding'
+            on_press: root.startBraiding()
+        
+                    
+            
+        
+        

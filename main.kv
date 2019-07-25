@@ -1,0 +1,260 @@
+#This is the main home page
+<Container>:
+    BoxLayout:
+        orientation: "vertical"
+        Button:
+            text: 'Run Motors Independantly'
+            on_press:
+                #print("Method for independant needs to be added!")
+                root.manager.current = 'calc'
+            font_size: 40
+        Button:
+            text: 'Run Motors Dependantly'
+            on_press:
+                print("Method for dependant motors needs to be added")
+                root.manager.current = 'dep'
+            font_size:40
+        Button:
+            text: 'STOP! and Exit'
+            on_press:
+                root.stop()
+                #exit()
+            background_color: 2, 0, 0, 1
+            font_size: 60
+
+<indeMotor>: #This is the mode that runs the motors independantly, Kv file for indeMotor Class 
+    inde_angle_text_input: inde_braid_angle
+    inde_mand_rad_text_input: inde_mandrel_rad
+    inde_dc_text_input: inde_dc
+    inde_step_text_input: inde_step
+    
+    BoxLayout:
+        orientation: "vertical"
+  #Column 1 with page title      
+        BoxLayout:
+            Label:
+                size_hint_y: 100
+                text: 'Run Motors Independently!'
+                font_size: 50
+  #Column 2 with page navigation buttons 
+        BoxLayout: 
+            size_hint_y: 50
+            Button:#this button takes you back to screen
+                text: 'Back'
+                font_size: 28
+                on_press: root.manager.current = 'calc'
+            Button:
+                text: 'Exit'
+                font_size: 28
+                on_press: exit()
+            Button:#this button stops braiding
+                text:'Stop Braiding'
+                background_color: 2, 0, 0, 1
+                font_size: 28
+                on_press:
+                    print("Implement the stop method")
+                    root.Stop()
+  #Column 3 with subtitle      
+        Label: 
+            size_hint_y: 75
+            font_size: 30
+            text: 'Enter braid variables'
+  # Column 4 with Braid Angle user Input          
+        BoxLayout: 
+            size_hint_y: 50
+            Label:
+                text: 'Braid Angle(degrees): '
+                size_hint_x: 20
+            TextInput:
+                multiline: False
+                size_hint_x: 20
+                id: inde_braid_angle
+            Label:
+                text:'0'
+                size_hint_x:20
+            Button:
+                on_press: root.submit_angle()
+                text: 'Submit!'
+                size_hint_x: 10
+   #Column 5 with Mandrel Radius User Input             
+        BoxLayout: 
+            size_hint_y: 50
+            Label:
+                text: 'Mandrel Radius (mm): '
+                size_hint_x: 20
+            TextInput:
+                multiline: False
+                size_hint_x: 30
+                id: inde_mandrel_rad
+            Button:
+                on_press: root.submit_radius()
+                text: 'Submit!'
+                size_hint_x: 10
+  # Column 6 with subtitle              
+        Label: 
+            size_hint_y: 75
+            font_size: 30
+            text: 'Now enter the required speeds'
+  #Column 7 with user inputs for speed          
+        BoxLayout: 
+            size_hint_y: 50
+            BoxLayout:
+                size_hint_x: 60
+                Label:
+                    text: 'Enter PWM corresponding to Braid speed'
+                    size_hint_x: 30
+                TextInput:
+                    size_hint_x: 8
+                    multiline: False
+                    id: inde_dc
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint_x: 4
+                    Button:
+                        on_press:
+                            root.increment()
+                        text: '+'
+                    Button:
+                        on_press:
+                            root.decrement()
+                        text: '-'
+            BoxLayout:
+                size_hint_x: 40
+                Label:
+                    size_hint_x: 30
+                    text: 'Enter Mandrel Speed in RPM'
+                TextInput:
+                    size_hint_x:10
+                    multiline: False
+                    id: inde_step
+        BoxLayout:
+            size_hint_y: 50
+            Button:
+                text: 'Start the Motors'
+                background_color: 2, 1, 0, 1
+                font_size: 40
+                on_press:
+                    root.inde_start()
+            Button:
+                text: 'Set Speeds'
+                background_color: 0, 0, 1, 1
+                font_size: 40
+                on_press:
+                    root.submit_speeds()                
+                    
+<depMotor>:
+    dep_braid_angle_text_input: dep_braid_angle
+    dep_mand_rad_text_input: dep_mand_rad
+    dep_dc_text_input: dep_dc
+    dep_step_text_input: dep_step
+    
+    BoxLayout:
+        orientation: "vertical"
+        Label: #Column 1 with page title
+            text: 'Run Motors Dependently!'
+            size_hint_y: 20
+            font_size: 50
+        BoxLayout: #column 2 with page navigation buttons
+            size_hint_y: 20
+            Button:
+                text: 'Back'
+                font_size: 28
+                on_press:
+                    root.manager.current = 'main'
+            Button:
+                text:'Stop Braiding'
+                background_color: 2, 0, 0, 1
+                font_size: 28
+        Label: #Column 3 with subtitle
+            size_hint_y: 10
+            font_size: 30
+            text: 'Enter braid variables'
+        BoxLayout: # Column 4 with Braid Angle user Input
+            size_hint_y: 10
+            Label:
+                text: 'Braid Angle (degrees): '
+                size_hint_x: 20
+            TextInput:
+                id: dep_braid_angle
+                multiline: False
+                size_hint_x: 30
+            Button:
+                on_press: root.submit_dep_angle()
+                text: 'Submit!'
+                size_hint_x: 10
+        BoxLayout: #Column 5 with Mandrel Radius User Input
+            size_hint_y: 10
+            Label:
+                text: 'Mandrel Radius (mm): '
+                size_hint_x: 20
+            TextInput:
+                multiline: False
+                id: dep_mand_rad
+                size_hint_x: 30
+            Button:
+                text: 'Submit!'
+                on_press: root.submit_dep_rad()
+                size_hint_x: 10
+        Label: # Column 6 with subtitle
+            size_hint_y: 10
+            font_size: 20
+            text: 'Now enter speeds required in the section you want to control the motor with:'
+        BoxLayout: # column 7: In this column the user gets to choose their independant motor
+            size_hint_y: 40
+            BoxLayout:
+                orientation: "vertical"
+                Label:
+                    text:'Control Speed using Braid Head'
+                    font_size: 27
+                BoxLayout:
+                    Label:
+                        text: 'Enter braid head speed. (rad/s)'
+                        size_hint_x: 90
+                    TextInput:
+                        multiline: False
+                        id: dep_dc
+                        size_hint_x: 40
+                    BoxLayout:
+                        size_hint_x: 10
+                        orientation: "vertical"
+                        Button:
+                            on_press:
+                                root.increment()
+                            text: '+'
+                        Button:
+                            on_press:
+                                root.decrement()
+                            text: '-'
+                Button:
+                    on_press: root.submit_speed_braider()
+                    font_size: 32
+                    text: 'Start Braiding'
+                    background_color: 0, 0, 2, 1
+            BoxLayout:
+                orientation: "vertical"
+                Label:
+                    text:'Control take-up speed'
+                    font_size: 27
+                BoxLayout:
+                    Label:
+                        text: 'Enter take-up speed. (mm/s)'
+                        size_hint_x: 100
+                    TextInput:
+                        multiline: False
+                        id: dep_step
+                        size_hint_x: 40
+                Button:
+                    font_size: 32
+                    text: 'Start Braiding'
+                    background_color: 0, 0, 2, 1
+                    on_press: root.submit_speed_takeup()
+        BoxLayout:
+            size_hint_y: 20
+            orientation: "vertical"
+            Button:
+                background_color: 0, 1, 0, 1
+                text: 'Speed Graph'
+            Button:
+                background_color: 0, 1, 0, 1
+                text: 'Camera'
+            
